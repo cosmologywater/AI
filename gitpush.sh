@@ -10,5 +10,6 @@ git add src/*.sh
 git add src/Makefile
 git add bin/LSS_sayhellotoraphael
 git add data/DEC_vs_RAspan-to-DECspan.txt
+git add model1/*.save
 git commit -m 'minor changes'
 git push

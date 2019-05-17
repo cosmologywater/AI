@@ -2,6 +2,7 @@ git pull
 git add *.sh
 git add *.ipynb
 git add *.png
+git add *.py
 git add README.md
 git add src/*.f90
 git add src/UsefulCodes/*.f90

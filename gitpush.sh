@@ -4,13 +4,10 @@ git add *.ipynb
 git add *.png
 git add *.py
 git add README.md
-git add src/*.f90
-git add src/UsefulCodes/*.f90
-git add src/*.py
-git add src/*.sh
+git add src/*.*
+git add src/*/*.*
 git add src/Makefile
-git add bin/LSS_sayhellotoraphael
-git add data/DEC_vs_RAspan-to-DECspan.txt
+
 git add model1/*.save
 git commit -m 'minor changes'
 git push

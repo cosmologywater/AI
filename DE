@@ -1,0 +1,38 @@
+import numpy as np
+mat = np.array(range(27))
+mat = mat.reshape(3,3,3)
+print mat
+print np.zeros((3, 3, 3))
+np.zeros(size, size, size)
+size = 3
+list1 = []
+def Symmetric(mat):
+    global size
+    mat1, mat2, mat3, mat4, mat5, mat6, mat7 = np.zeros((size, size, size)*7
+    list1.append(mat)
+    range1 = range(size)
+    for i in range1:
+        for j in range1:
+            for k in range1:
+                mat1[i][j][k] = mat[size-1-i][j][k]
+                mat2[i][j][k] = mat[size-1-i][size-1-j][k]
+                mat3[i][j][k] = mat[size-1-i][size-1-j][size-1-k]
+                mat4[i][j][k] = mat[size-1-i][j][size-1-k]
+                mat5[i][j][k] = mat[i][size-1-j][size-1-k]
+                mat6[i][j][k] = mat[i][size-1-j][k]
+                mat7[i][j][k] = mat[i][j][size-1-k]
+    return mat1, mat2, mat3, mat4, mat5, mat6, mat7
+    
+def dataEnhance(mat):
+    global size
+    mat1, mat2, mat3, mat4, mat5 = np.zeros(size, size, size)*5
+    for i in range(size):
+        for j in range(size):
+            for k in range(size):
+                mat1[i][j][k] = mat[i][k][j]
+                mat2[i][j][k] = mat[k][i][j]
+                mat3[i][j][k] = mat[k][j][i]
+                mat4[i][j][k] = mat[j][i][k]
+                mat5[i][j][k] = mat[j][k][i]
+    return mat1, Symmetric(mat1),mat2,Symmetric(mat2), mat3,Symmetric(mat3), mat4,Symmetric(mat4), mat5, Symmetric(mat5)
+list(dataEnhance(mat))

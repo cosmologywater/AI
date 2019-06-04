@@ -2,7 +2,7 @@
 
 import os
 
-modelname = 'model1.1.8'
+modelname = 'sgd'
 
 os.system('mkdir ./'+modelname)
 outputf = open(modelname+'/output.txt', 'w')
@@ -238,12 +238,15 @@ nowmodel = keras.Sequential([
         layers.Dense(2, ),
     ])
 
-nowmodel.compile(optimizer=keras.optimizers.Adadelta(), loss='mean_squared_error',
+#nowmodel.compile(optimizer=keras.optimizers.Adadelta(), loss='mean_squared_error',
+#              metrics=['mean_squared_error'])
+sgd = keras.optimizers.SGD(lr=0.01, decay=1e-6, momentum=0.9, nesterov=True)
+nowmodel.compile(optimizer=sgd, loss='mean_squared_error',
               metrics=['mean_squared_error'])
 
 epochs = 0 
 
-step_epoch = 10
+step_epoch = 5
 
 while epochs <= max_epochs:
 
@@ -262,13 +265,13 @@ while epochs <= max_epochs:
                     validation_data=(x_test,y_test))
     epochs += step_epoch
 
-    filepath = './'+modelname+'/'+str(epochs)+'.save'
+    filepath = '//home/xiaodongli/data/colas/cola_multiverse/AI/src/'+modelname+'/'+str(epochs)+'.save'
     # Plot validation
-    if True:
+    if False:
         fig, ax = None, None
         for row in range(10):
             x_test, y_test = create_validate_sample(1, use_random=True, startid=row)
-            fig, ax = plot_test(models[imodel], x_test, y_test, fig=fig, ax=ax)
+            fig, ax = plot_test(nowmodel, x_test, y_test, fig=fig, ax=ax)
         ax.grid(); plt.show()
         ax.set_title('#-epochs = '+str(epochs), fontsize=16)
         fig.savefig(filepath+'.png', format='png')

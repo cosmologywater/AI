@@ -2,7 +2,7 @@
 
 import os
 
-modelname = 'epochs_test'
+modelname = 'test_size_0.0'
 
 os.system('mkdir ./'+modelname)
 outputf = open(modelname+'/output.txt', 'w')
@@ -119,7 +119,7 @@ def data_augument(A):
 # lsstr = "ls /media/minstrel/Seagate/cola_multiverse/om_As/"
 # 初始化数据集,因函数定义中参数不可转为全局变量
 # 此过程受train_test_split的test_size参数的影响,则今后更改或维护程序应注意
-test_size = 0.3
+test_size = 0.0
 batch_size = 31
 num_subcube = 64
 num_data_augument = 48
@@ -240,6 +240,9 @@ nowmodel = keras.Sequential([
 
 nowmodel.compile(optimizer=keras.optimizers.Adadelta(), loss='mean_squared_error',
               metrics=['mean_squared_error'])
+#sgd = keras.optimizers.SGD(lr=0.01, decay=1e-6, momentum=0.9, nesterov=True)
+#nowmodel.compile(optimizer=sgd, loss='mean_squared_error',
+#              metrics=['mean_squared_error'])
 
 epochs = 0 
 

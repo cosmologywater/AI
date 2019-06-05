@@ -2,7 +2,7 @@
 
 import os
 
-modelname = 'sgd_lr0.02'
+modelname = 'sgd_lr0.05'
 
 os.system('mkdir ./'+modelname)
 outputf = open(modelname+'/output.txt', 'w')
@@ -244,7 +244,7 @@ nowmodel = keras.Sequential([
 #nowmodel.compile(optimizer=keras.optimizers.Adadelta(), loss='mean_squared_error',
 #              metrics=['mean_squared_error'])
 # default learning rate: 0.01
-sgd = keras.optimizers.SGD(lr=0.02, decay=1e-6, momentum=0.9, nesterov=True)
+sgd = keras.optimizers.SGD(lr=0.05, decay=1e-6, momentum=0.9, nesterov=True)
 nowmodel.compile(optimizer=sgd, loss='mean_squared_error',
               metrics=['mean_squared_error'])
 

@@ -2,7 +2,7 @@
 
 import os
 
-modelname = 'sgd_lr0.02'
+modelname = 'sgd_lr0.02_doublefilters_maxpool'
 
 os.system('mkdir ./'+modelname)
 outputf = open(modelname+'/output.txt', 'w')
@@ -223,17 +223,17 @@ max_epochs = 500
 
 nowmodel = keras.Sequential([
         layers.BatchNormalization( input_shape=(32, 32, 32, 1)),
-        layers.Conv3D(32, (3, 3, 3), activation='relu'),
-        layers.AveragePooling3D(pool_size=(2, 2, 2)),
-        #layers.MaxPooling3D(pool_size=(2, 2, 2)),
-        layers.BatchNormalization(),
         layers.Conv3D(64, (3, 3, 3), activation='relu'),
-        layers.AveragePooling3D(pool_size=(2, 2, 2)),
-        #layers.MaxPooling3D(pool_size=(2, 2, 2)),
+        #layers.AveragePooling3D(pool_size=(2, 2, 2)),
+        layers.MaxPooling3D(pool_size=(2, 2, 2)),
         layers.BatchNormalization(),
         layers.Conv3D(128, (3, 3, 3), activation='relu'),
-        layers.AveragePooling3D(pool_size=(2, 2, 2)),
-        #layers.MaxPooling3D(pool_size=(2, 2, 2)),
+        #layers.AveragePooling3D(pool_size=(2, 2, 2)),
+        layers.MaxPooling3D(pool_size=(2, 2, 2)),
+        layers.BatchNormalization(),
+        layers.Conv3D(256, (3, 3, 3), activation='relu'),
+        #layers.AveragePooling3D(pool_size=(2, 2, 2)),
+        layers.MaxPooling3D(pool_size=(2, 2, 2)),
         layers.Dropout(0.2),
         layers.Flatten(),
         layers.Dense(1024, activation='relu'),

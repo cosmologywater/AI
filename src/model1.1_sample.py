@@ -2,7 +2,7 @@
 
 import os
 
-modelname = 'sgd_lr0.02'
+modelname = 'epochs_test'
 
 os.system('mkdir ./'+modelname)
 outputf = open(modelname+'/output.txt', 'w')
@@ -67,24 +67,6 @@ def mocklist():
         except:
             pass
     return cosmologies, files, mocks
-
-gridfile_dict = {}
-
-cosmologies, filenames, infos = mocklist()
-print('In total ', len(cosmologies), 'cosmologies')
-outputf.write('In total '+str(len(cosmologies))+'cosmologies\n')
-
-print('Build up gridfile_dict... (for speed-up of load_grid()) ')
-outputf.write('Build up gridfile_dict... (for speed-up of load_grid()) \n')
-for cosmology in cosmologies:
-    rlt = gridfiles(cosmology)
-    if rlt == []:
-        print ('\tmissing cosmology!', cosmology)
-        outputf.write('\tmissing cosmology!' +str(cosmology)+ '\n')
-    else:
-        gridfile_dict[cosmology] = rlt[0]
-np.random.shuffle(cosmologies)
-
 
 def load_grid(gridfile, snpstr='c', printinfo=False):  # 网格加载
     #gridfile = os.popen(lsstr + cosmology+"_sigma8_*grid*" + snpstr + ".*").read().split()[0]
@@ -225,15 +207,12 @@ nowmodel = keras.Sequential([
         layers.BatchNormalization( input_shape=(32, 32, 32, 1)),
         layers.Conv3D(32, (3, 3, 3), activation='relu'),
         layers.AveragePooling3D(pool_size=(2, 2, 2)),
-        #layers.MaxPooling3D(pool_size=(2, 2, 2)),
         layers.BatchNormalization(),
         layers.Conv3D(64, (3, 3, 3), activation='relu'),
         layers.AveragePooling3D(pool_size=(2, 2, 2)),
-        #layers.MaxPooling3D(pool_size=(2, 2, 2)),
         layers.BatchNormalization(),
         layers.Conv3D(128, (3, 3, 3), activation='relu'),
         layers.AveragePooling3D(pool_size=(2, 2, 2)),
-        #layers.MaxPooling3D(pool_size=(2, 2, 2)),
         layers.Dropout(0.2),
         layers.Flatten(),
         layers.Dense(1024, activation='relu'),
@@ -241,12 +220,28 @@ nowmodel = keras.Sequential([
         layers.Dense(2, ),
     ])
 
-#nowmodel.compile(optimizer=keras.optimizers.Adadelta(), loss='mean_squared_error',
-#              metrics=['mean_squared_error'])
-# default learning rate: 0.01
-sgd = keras.optimizers.SGD(lr=0.02, decay=1e-6, momentum=0.9, nesterov=True)
-nowmodel.compile(optimizer=sgd, loss='mean_squared_error',
+nowmodel.compile(optimizer=keras.optimizers.Adadelta(), loss='mean_squared_error',
               metrics=['mean_squared_error'])
+
+print('model compilation done.')
+
+gridfile_dict = {}
+
+cosmologies, filenames, infos = mocklist()
+print('In total ', len(cosmologies), 'cosmologies')
+outputf.write('In total '+str(len(cosmologies))+'cosmologies\n')
+
+print('Build up gridfile_dict... (for speed-up of load_grid()) ')
+outputf.write('Build up gridfile_dict... (for speed-up of load_grid()) \n')
+for cosmology in cosmologies:
+    rlt = gridfiles(cosmology)
+    if rlt == []:
+        print ('\tmissing cosmology!', cosmology)
+        outputf.write('\tmissing cosmology!' +str(cosmology)+ '\n')
+    else:
+        gridfile_dict[cosmology] = rlt[0]
+np.random.shuffle(cosmologies)
+
 
 epochs = 0 
 

@@ -2,7 +2,7 @@
 
 import os
 
-modelname = 'epochs_test'
+modelname = 'sgd'
 
 os.system('mkdir ./'+modelname)
 outputf = open(modelname+'/output.txt', 'w')
@@ -238,7 +238,10 @@ nowmodel = keras.Sequential([
         layers.Dense(2, ),
     ])
 
-nowmodel.compile(optimizer=keras.optimizers.Adadelta(), loss='mean_squared_error',
+#nowmodel.compile(optimizer=keras.optimizers.Adadelta(), loss='mean_squared_error',
+#              metrics=['mean_squared_error'])
+sgd = keras.optimizers.SGD(lr=0.01, decay=1e-6, momentum=0.9, nesterov=True)
+nowmodel.compile(optimizer=sgd, loss='mean_squared_error',
               metrics=['mean_squared_error'])
 
 epochs = 0 

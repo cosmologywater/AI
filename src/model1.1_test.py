@@ -68,24 +68,6 @@ def mocklist():
             pass
     return cosmologies, files, mocks
 
-gridfile_dict = {}
-
-cosmologies, filenames, infos = mocklist()
-print('In total ', len(cosmologies), 'cosmologies')
-outputf.write('In total '+str(len(cosmologies))+'cosmologies\n')
-
-print('Build up gridfile_dict... (for speed-up of load_grid()) ')
-outputf.write('Build up gridfile_dict... (for speed-up of load_grid()) \n')
-for cosmology in cosmologies:
-    rlt = gridfiles(cosmology)
-    if rlt == []:
-        print ('\tmissing cosmology!', cosmology)
-        outputf.write('\tmissing cosmology!' +str(cosmology)+ '\n')
-    else:
-        gridfile_dict[cosmology] = rlt[0]
-np.random.shuffle(cosmologies)
-
-
 def load_grid(gridfile, snpstr='c', printinfo=False):  # 网格加载
     #gridfile = os.popen(lsstr + cosmology+"_sigma8_*grid*" + snpstr + ".*").read().split()[0]
     #print('load in gridfile : ', gridfile, '...')
@@ -240,6 +222,26 @@ nowmodel = keras.Sequential([
 
 nowmodel.compile(optimizer=keras.optimizers.Adadelta(), loss='mean_squared_error',
               metrics=['mean_squared_error'])
+
+print('model compilation done.')
+
+gridfile_dict = {}
+
+cosmologies, filenames, infos = mocklist()
+print('In total ', len(cosmologies), 'cosmologies')
+outputf.write('In total '+str(len(cosmologies))+'cosmologies\n')
+
+print('Build up gridfile_dict... (for speed-up of load_grid()) ')
+outputf.write('Build up gridfile_dict... (for speed-up of load_grid()) \n')
+for cosmology in cosmologies:
+    rlt = gridfiles(cosmology)
+    if rlt == []:
+        print ('\tmissing cosmology!', cosmology)
+        outputf.write('\tmissing cosmology!' +str(cosmology)+ '\n')
+    else:
+        gridfile_dict[cosmology] = rlt[0]
+np.random.shuffle(cosmologies)
+
 
 epochs = 0 
 

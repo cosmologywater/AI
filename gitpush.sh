@@ -5,6 +5,7 @@ git add *.png
 git add *.py
 git add README.md
 git add src/*.py
+git add src/*.ipynb
 #git add src/*/*.save
 git add src/Makefile
 

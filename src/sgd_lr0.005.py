@@ -33,7 +33,8 @@ if False:
 
 import keras, os, struct
 
-lsstr = "ls /home/xiaodongli/data/colas/cola_multiverse/om_As/"
+lsstr = "ls /media/xiaodongli/0B9ADFB4341AD2BD/om_As/"
+srcpath = '/home/xiaodongli/projects/AI/src/'
 
 def cosmostr(om, As):
     return 'om%.3f' % om + '_As%.3f' % As
@@ -219,7 +220,7 @@ def plot_test(model, x, y, plot_avg_predict = True, fig=None, ax = None, plot_su
 
 
 
-max_epochs = 500
+max_epochs = 1500
 
 nowmodel = keras.Sequential([
         layers.BatchNormalization( input_shape=(32, 32, 32, 1)),
@@ -269,7 +270,7 @@ while epochs <= max_epochs:
                     validation_data=(x_test,y_test))
     epochs += step_epoch
 
-    filepath = '//home/xiaodongli/data/colas/cola_multiverse/AI/src/'+modelname+'/'+str(epochs)+'.save'
+    filepath = srcpath+'/'+modelname+'/'+str(epochs)+'.save'
     # Plot validation
     if False:
         fig, ax = None, None

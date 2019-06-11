@@ -2,11 +2,7 @@
 
 import os
 
-<<<<<<< HEAD
-modelname = 'sgd_lr0.01_momentum0.3'
-=======
-modelname = 'sgd_lr0.01_momentum0.3_8thread'
->>>>>>> a1b954350d40135973388b5acfb6c358196c7def
+modelname = 'sgd_lr0.01'
 
 os.system('mkdir ./'+modelname)
 outputf = open(modelname+'/output.txt', 'w')
@@ -37,12 +33,7 @@ if False:
 
 import keras, os, struct
 
-<<<<<<< HEAD
-#lsstr = "ls /home/xiaodongli/data/colas/cola_multiverse/om_As/"
-lsstr = "ls /home/xiaodongli/data/simulation/om_As/"
-=======
 lsstr = "ls /home/xiaodongli/data/colas/cola_multiverse/om_As/"
->>>>>>> a1b954350d40135973388b5acfb6c358196c7def
 
 def cosmostr(om, As):
     return 'om%.3f' % om + '_As%.3f' % As
@@ -228,7 +219,7 @@ def plot_test(model, x, y, plot_avg_predict = True, fig=None, ax = None, plot_su
 
 
 
-max_epochs = 500
+max_epochs = 1500
 
 nowmodel = keras.Sequential([
         layers.BatchNormalization( input_shape=(32, 32, 32, 1)),
@@ -253,7 +244,7 @@ nowmodel = keras.Sequential([
 #nowmodel.compile(optimizer=keras.optimizers.Adadelta(), loss='mean_squared_error',
 #              metrics=['mean_squared_error'])
 # default learning rate: 0.01
-sgd = keras.optimizers.SGD(lr=0.01, decay=1e-6, momentum=0.3, nesterov=True)
+sgd = keras.optimizers.SGD(lr=0.01, decay=1e-6, momentum=0.9, nesterov=True)
 nowmodel.compile(optimizer=sgd, loss='mean_squared_error',
               metrics=['mean_squared_error'])
 
@@ -278,11 +269,7 @@ while epochs <= max_epochs:
                     validation_data=(x_test,y_test))
     epochs += step_epoch
 
-<<<<<<< HEAD
-    filepath = '//home/xiaodongli/projects/AI/src/'+modelname+'/'+str(epochs)+'.save'
-=======
     filepath = '//home/xiaodongli/data/colas/cola_multiverse/AI/src/'+modelname+'/'+str(epochs)+'.save'
->>>>>>> a1b954350d40135973388b5acfb6c358196c7def
     # Plot validation
     if False:
         fig, ax = None, None

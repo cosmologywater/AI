@@ -8,6 +8,7 @@ git add src/*.py
 git add src/*.ipynb
 #git add src/*/*.save
 git add src/Makefile
+git add draft/*.*
 
 git add model1/*.save
 git commit -m 'minor changes'
